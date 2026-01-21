@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
-const TodoRoutes = require("./routes/todos");
+const NoteRoutes = require("./routes/notes");
+const UserRoutes = require("./routes/user");
 const app = express();
 const port = 3000;
 const bodyParser = require('body-parser');
@@ -21,7 +22,8 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-app.use("/api/v1", TodoRoutes);
+app.use("/api/v1", NoteRoutes);
+app.use("/api/auth", UserRoutes);
 app.get("*", (req, res) => {
     res.sendFile(path.resolve(distPath, "index.html"));
 });
